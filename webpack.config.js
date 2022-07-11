@@ -16,7 +16,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     host: 'localhost',
-    port: 8080,
+    port: '8080',
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
@@ -28,7 +28,7 @@ module.exports = {
       // publicPath: '/dist',
     },
 
-    headers: { 
+    headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization'
@@ -69,12 +69,14 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {//test gives regex file path, use is name of loader
-        test: /\.(png|jpg|gif|svg)$/i, 
+        test: /\.(png|jpg|gif|svg)$/i,
         type: 'asset/resource',
         exclude: /node_modules/
-      }, 
-      { test: /\.geojson$/,
-       type: 'json' }
+      },
+      {
+        test: /\.geojson$/,
+        type: 'json'
+      }
     ],
   },
   plugins: [
