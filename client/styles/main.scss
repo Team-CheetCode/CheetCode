@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 #Home {
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
@@ -14,10 +15,25 @@
 nav {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
   text-align: center;
   border-right: 2px solid black;
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: 900;
+    padding: 2em 1em;
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  a:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
 #dashboard {
@@ -36,8 +52,7 @@ nav {
 
 #qotd {
   display: flex;
-  justify-content: center;
-  // align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   border: 1px solid black;
@@ -45,13 +60,14 @@ nav {
 }
 
 #question {
-  text-align: center;
   width: 100%;
+  text-align: center;
+  overflow: auto;
 }
 
 #userInput {
-  background-color: black;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,14 +78,30 @@ nav {
   text-align: center;
   border-left: 2px solid black;
 }
-// .testtest {
-//   position: relative;
-//   top: 25%;
-// }
+
+.themeBtns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+#submit {
+  margin-top: 10px;
+  border-radius: 100px;
+  padding: 0.8em 1em;
+  border: 1px solid black;
+  background-color: blue;
+  color: white;
+  font-weight: 700;
+}
+
+.testtest {
+  width: 100% !important;
+}
 
 // .homeTest {
 //   width: 100vw;
 //   height: 100vh;
 //   background-color: red;
 // }
-
