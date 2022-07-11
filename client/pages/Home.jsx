@@ -1,14 +1,18 @@
 import React from 'react'
 import Sidenav from '../components/Sidenav.jsx';
 import Qotd from '../components/Qotd.jsx';
+import Answers from '../components/Answers.jsx';
+import Rightbar from '../components/Rightbar.jsx';
 import styles from '../styles/main.scss';
 const Home = () => {
   return (
-    <div className="homeTest">
+    <div id="Home">
       <Sidenav />
+      {/* <Answers /> */}
       <Qotd />
-      Home
-      
+      <Rightbar />
+      {/* <div id="dashboard">
+      </div> */}
     </div>
   );
 };
