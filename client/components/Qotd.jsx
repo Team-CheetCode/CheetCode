@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from "react-ace";
+import UserConsole from './UserConsole';
 const axios = require('axios');
 // possible languages
 import "ace-builds/src-noconflict/mode-javascript";
@@ -26,9 +27,10 @@ import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 
 
 const Qotd = props => {
+  // const [solution, setSolution] = useState(props.langSnippets[6]);
+  // console.log(solution)
   const [theme, setTheme] = useState('twilight');
   const [lang, setLang] = useState('javascript')
-  const [console, setConsole] = useState('');
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
@@ -52,33 +54,20 @@ const Qotd = props => {
     alert(props.solution);
   };
 
-  const execute = () => {
+  const execute = async () => {
     // Get input from the code editor
     // Run the user code
-    try {
-        setConsole(`${new Function(props.solution)()}`);
-    } catch (err) {
-        return console.error(err);
-    }
+    const test = await new Function(props.solution)();
+    
+    await console.log(test);
+
   }
 
-  const [] = useState();
-  
-  const grabData = async () => {
-    await axios.get('htt://localhost:3000/result')
-      .then((response) => {
-        console.log('browser response', response);
-      });
-  };
-
-  useEffect(() => {
-    grabData();
-  }, []);
 
   return (
     <div id="qotd">
       <div id="prompt">
-        <h1 id="question">QOTD: {props.title}</h1>
+        <h1 id="question">QOTD: {props.title ? props.title : 'Loading...'}</h1>
         <div className="problem">
           <p>Difficulty: {props.difficulty}</p>
           <p id="problem" dangerouslySetInnerHTML={{__html: props.problem}}></p>
@@ -116,9 +105,9 @@ const Qotd = props => {
             tabSize: 2,
           }} />
         <button id="submit" onClick={execute}>Submit Solution</button>
-      </div>
-      <div className="console">
-        <p>{`${console}`}</p>
+        <div className="console">
+          <UserConsole logs={props.consoleData} variant="dark" />
+        </div>
       </div>
     </div>
   )
