@@ -27,10 +27,22 @@ import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 
 const Qotd = props => {
   const [theme, setTheme] = useState('twilight');
+  const [lang, setLang] = useState('javascript')
   
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
+
+  // const changeLang = (e) => {
+  //   console.log(e.target.textContent)
+  //   if(e.target.textContent === 'typescript') {
+  //     props.setSolution(props.langSnippets[14])
+  //     setLang(e.target.textContent)
+  //   } else if(e.target.textContent === 'javascript') {
+  //     props.setSolution(props.langSnippets[6])
+  //     setLang(e.target.textContent)
+  //   }
+  // };
 
   const handleChange = (e) => {
     setSolution(e);
@@ -59,10 +71,14 @@ const Qotd = props => {
           <button onClick={changeTheme}>github</button>
           <button onClick={changeTheme}>xcode</button>
         </div>
+        {/* <div className="themeBtns">
+          <button onClick={changeLang}>javascript</button>
+          <button onClick={changeLang}>typescript</button>
+        </div> */}
         <AceEditor
           className="testtest"
           placeholder="Type your solution here..."
-          mode="javascript"
+          mode={lang}
           theme={theme}
           fontSize={14}
           // height="50vh"

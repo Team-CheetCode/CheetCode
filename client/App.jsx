@@ -8,16 +8,16 @@ const App = () => {
   const [problem, setProblem] = useState('');
   const [title, setTitle] = useState('');
   const [difficulty, setDifficulty] = useState('');
-  const [solution, setSolution] = useState(`const twoSum = (array, target) => {
-    
-  }`);
-
+  
+  const [langSnippets, setLangSnippets] = useState('')
+  const [solution, setSolution] = useState('');
 
   useEffect(() => {
     async function getQuestion () {
       const qData = await axios.get('/api/qotd')
       console.log('data', qData)
       setProblem(qData.data.question.content);
+      setLangSnippets(qData.data.question.codeSnippets);
       setSolution(qData.data.question.codeSnippets[6].code);
       setTitle(qData.data.question.title);
       setDifficulty(qData.data.question.difficulty);
@@ -32,6 +32,8 @@ const App = () => {
         title={title}
         difficulty={difficulty}
         solution={solution}
+        setSolution={setSolution}
+        langSnippets={langSnippets}
         />} />
         <Route path='/solutions' element={<Solutions />} />
       </Routes>
