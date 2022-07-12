@@ -8,20 +8,19 @@ const App = () => {
   const [problem, setProblem] = useState('');
   const [title, setTitle] = useState('');
   const [difficulty, setDifficulty] = useState('');
-  
-  const [langSnippets, setLangSnippets] = useState('')
   const [solution, setSolution] = useState('');
-
+  const [langSnippets, setLangSnippets] = useState('')
+  
+  async function getQuestion () {
+    const qData = await axios.get('/api/qotd')
+    console.log('data', qData)
+    setProblem(qData.data.question.content);
+    setLangSnippets(qData.data.question.codeSnippets);
+    setSolution(qData.data.question.codeSnippets[6].code);
+    setTitle(qData.data.question.title);
+    setDifficulty(qData.data.question.difficulty);
+  }
   useEffect(() => {
-    async function getQuestion () {
-      const qData = await axios.get('/api/qotd')
-      console.log('data', qData)
-      setProblem(qData.data.question.content);
-      setLangSnippets(qData.data.question.codeSnippets);
-      setSolution(qData.data.question.codeSnippets[6].code);
-      setTitle(qData.data.question.title);
-      setDifficulty(qData.data.question.difficulty);
-    }
     getQuestion();
   }, [])
   return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from "react-ace";
+import UserConsole from './UserConsole';
 const axios = require('axios');
 // possible languages
 import "ace-builds/src-noconflict/mode-javascript";
@@ -26,9 +27,10 @@ import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 
 
 const Qotd = props => {
+  // const [solution, setSolution] = useState(props.langSnippets[6]);
+  // console.log(solution)
   const [theme, setTheme] = useState('twilight');
   const [lang, setLang] = useState('javascript')
-  
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
@@ -49,13 +51,23 @@ const Qotd = props => {
   };
 
   const handleSubmit = () => {
-    alert(solution);
+    alert(props.solution);
+  };
+
+  const execute = async () => {
+    // Get input from the code editor
+    // Run the user code
+    const test = await new Function(props.solution)();
+    
+    await console.log(test);
+
   }
+
 
   return (
     <div id="qotd">
       <div id="prompt">
-        <h1 id="question">QOTD: {props.title}</h1>
+        <h1 id="question">QOTD: {props.title ? props.title : 'Loading...'}</h1>
         <div className="problem">
           <p>Difficulty: {props.difficulty}</p>
           <p id="problem" dangerouslySetInnerHTML={{__html: props.problem}}></p>
@@ -92,7 +104,10 @@ const Qotd = props => {
             showLineNumbers: true,
             tabSize: 2,
           }} />
-        <button id="submit" onClick={handleSubmit}>Submit Solution</button>
+        <button id="submit" onClick={execute}>Submit Solution</button>
+        <div className="console">
+          <UserConsole logs={props.consoleData} variant="dark" />
+        </div>
       </div>
     </div>
   )

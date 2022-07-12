@@ -31,7 +31,8 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-ace": "^10.1.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "console-feed": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
