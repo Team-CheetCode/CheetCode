@@ -14,6 +14,8 @@ const Home = props => {
       title={props.title}
       difficulty={props.difficulty}
       solution={props.solution}
+      setSolution={props.setSolution}
+      langSnippets={props.langSnippets}
       />
       <Rightbar />
       {/* <div id="dashboard">

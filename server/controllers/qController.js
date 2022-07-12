@@ -7,7 +7,7 @@ const { queryByPlaceholderText } = require('@storybook/testing-library');
 const qController = {};
 
 qController.qFromDB = (req, res, next) => {
-  const query = 'SELECT question FROM blind75 WHERE _id=34;';
+  const query = 'SELECT question FROM blind75 WHERE _id=37;';
   db.query(query)
     .then(data => {
       res.locals.title = data.rows[0].question;
