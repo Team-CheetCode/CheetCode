@@ -114,15 +114,15 @@ nav {
   margin-top: 10px;
   border-radius: 100px;
   padding: 0.8em 1em;
-  border: 1px solid black;
+  border: 1px solid rgb(186, 14, 143);
   background-color: rgb(186, 14, 143);
   color: white;
   font-weight: 700;
 
-  :hover {
-    border: 1px solid (186, 14, 143);
-    background-color: black;
-  }
+}
+
+#submit:hover {
+  background-color: black;
 }
 
 .testtest {
