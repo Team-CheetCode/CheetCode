@@ -28,7 +28,7 @@ import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 const Qotd = props => {
   const [theme, setTheme] = useState('twilight');
   const [lang, setLang] = useState('javascript')
-  
+  const [console, setConsole] = useState('');
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
@@ -49,8 +49,31 @@ const Qotd = props => {
   };
 
   const handleSubmit = () => {
-    alert(solution);
+    alert(props.solution);
+  };
+
+  const execute = () => {
+    // Get input from the code editor
+    // Run the user code
+    try {
+        setConsole(`${new Function(props.solution)()}`);
+    } catch (err) {
+        return console.error(err);
+    }
   }
+
+  const [] = useState();
+  
+  const grabData = async () => {
+    await axios.get('htt://localhost:3000/result')
+      .then((response) => {
+        console.log('browser response', response);
+      });
+  };
+
+  useEffect(() => {
+    grabData();
+  }, []);
 
   return (
     <div id="qotd">
@@ -92,7 +115,10 @@ const Qotd = props => {
             showLineNumbers: true,
             tabSize: 2,
           }} />
-        <button id="submit" onClick={handleSubmit}>Submit Solution</button>
+        <button id="submit" onClick={execute}>Submit Solution</button>
+      </div>
+      <div className="console">
+        <p>{`${console}`}</p>
       </div>
     </div>
   )

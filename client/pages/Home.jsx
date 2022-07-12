@@ -2,7 +2,6 @@ import React from 'react'
 import Sidenav from '../components/Sidenav.jsx';
 import Qotd from '../components/Qotd.jsx';
 import Answers from '../components/Answers.jsx';
-import Rightbar from '../components/Rightbar.jsx';
 import styles from '../styles/main.scss';
 const Home = props => {
   return (
@@ -17,7 +16,6 @@ const Home = props => {
       setSolution={props.setSolution}
       langSnippets={props.langSnippets}
       />
-      <Rightbar />
       {/* <div id="dashboard">
       </div> */}
     </div>
