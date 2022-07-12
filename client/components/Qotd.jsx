@@ -45,7 +45,7 @@ const Qotd = props => {
   // };
 
   const handleChange = (e) => {
-    setSolution(e);
+    props.setSolution(e);
   };
 
   const handleSubmit = () => {
@@ -92,7 +92,7 @@ const Qotd = props => {
             showLineNumbers: true,
             tabSize: 2,
           }} />
-        <button id="submit" onClick={handleSubmit} >Submit Solution</button>
+        <button id="submit" onClick={handleSubmit}>Submit Solution</button>
       </div>
     </div>
   )
