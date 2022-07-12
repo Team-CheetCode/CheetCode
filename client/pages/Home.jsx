@@ -1,14 +1,25 @@
 import React from 'react'
 import Sidenav from '../components/Sidenav.jsx';
 import Qotd from '../components/Qotd.jsx';
+import Answers from '../components/Answers.jsx';
+import Rightbar from '../components/Rightbar.jsx';
 import styles from '../styles/main.scss';
-const Home = () => {
+const Home = props => {
   return (
-    <div className="homeTest">
+    <div id="Home">
       <Sidenav />
-      <Qotd />
-      Home
-      
+      {/* <Answers /> */}
+      <Qotd 
+      problem={props.problem}
+      title={props.title}
+      difficulty={props.difficulty}
+      solution={props.solution}
+      setSolution={props.setSolution}
+      langSnippets={props.langSnippets}
+      />
+      <Rightbar />
+      {/* <div id="dashboard">
+      </div> */}
     </div>
   );
 };
