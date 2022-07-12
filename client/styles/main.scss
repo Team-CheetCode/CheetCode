@@ -45,9 +45,10 @@ nav {
 #prompt {
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
-#problem {
+.problem {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -89,7 +90,7 @@ nav {
 
 #userInput {
   height: 100%;
-  width: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,9 +115,14 @@ nav {
   border-radius: 100px;
   padding: 0.8em 1em;
   border: 1px solid black;
-  background-color: blue;
+  background-color: rgb(186, 14, 143);
   color: white;
   font-weight: 700;
+
+  :hover {
+    border: 1px solid (186, 14, 143);
+    background-color: black;
+  }
 }
 
 .testtest {
