@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AceEditor from "react-ace";
-
+const axios = require('axios');
 // possible languages
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-typescript";
@@ -21,14 +21,13 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/theme-github";
 
 import "ace-builds/src-noconflict/ext-language_tools";
+import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 
 
-const Qotd = () => {
-  const [theme, setTheme] = useState('monokai');
-  const [solution, setSolution] = useState(`const twoSum = (array, target) => {
 
-}`);
-
+const Qotd = props => {
+  const [theme, setTheme] = useState('twilight');
+  
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
@@ -43,15 +42,19 @@ const Qotd = () => {
 
   return (
     <div id="qotd">
-
-      <h1 id="question">QOTD: Two-Sum</h1>
-
+      <div id="prompt">
+        <h1 id="question">QOTD: {props.title}</h1>
+        <div className="problem">
+          <p>Difficulty: {props.difficulty}</p>
+          <p id="problem" dangerouslySetInnerHTML={{__html: props.problem}}></p>
+        </div>
+      </div>
       <div id="userInput">
         <h1>Input Your Solution</h1>
         <div className="themeBtns">
+          <button onClick={changeTheme}>twilight</button>
           <button onClick={changeTheme}>monokai</button>
           <button onClick={changeTheme}>terminal</button>
-          <button onClick={changeTheme}>twilight</button>
           <button onClick={changeTheme}>tomorrow</button>
           <button onClick={changeTheme}>github</button>
           <button onClick={changeTheme}>xcode</button>
@@ -67,7 +70,7 @@ const Qotd = () => {
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          value={solution}
+          value={props.solution}
           onChange={handleChange}
           setOptions={{
             showLineNumbers: true,
