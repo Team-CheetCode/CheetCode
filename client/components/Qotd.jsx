@@ -3,7 +3,7 @@ import AceEditor from "react-ace";
 import { Console, Hook, Unhook } from 'console-feed'
 import axios from 'axios';
 import UserConsole from './UserConsole';
-
+import SubmitForm from './SubmitForm';
 // possible languages
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-typescript";
@@ -36,6 +36,7 @@ const Qotd = props => {
   const [difficulty, setDifficulty] = useState('');
   const [solution, setSolution] = useState('');
   const [toggleForm, setToggleForm] = useState(false);
+  const [name, setName] = useState(undefined)
   // const [langSnippets, setLangSnippets] = useState('')
   
   const getQuestion = async () => {
@@ -43,15 +44,14 @@ const Qotd = props => {
     const day2 = new Date();
     const difference = day1.getTime() - day2.getTime();
     const days = Math.abs(Math.ceil(difference / (1000 * 3600 * 24)));
-    console.log('days', days);
+    console.log('day', days);
     const qData = await axios.get(`/api/qotd/${days}`);
-    console.log('data', qData);
     setProblem(qData.data.question.content);
     // setLangSnippets(qData.data.question.codeSnippets);
     setSolution(qData.data.question.codeSnippets[6].code);
     setTitle(qData.data.question.title);
     setDifficulty(qData.data.question.difficulty);
-  }
+  };
   
   useEffect(() => {
     getQuestion();
@@ -79,12 +79,14 @@ const Qotd = props => {
     const days = Math.abs(Math.ceil(difference / (1000 * 3600 * 24)));
     axios.post('/api/userData', {
       solution: `${solution}`,
-      id: days
+      id: days,
+      name: name
     }).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err);
     });
+    setToggleForm(false);
   };
 
   const execute = () => {
@@ -139,17 +141,18 @@ const Qotd = props => {
             showLineNumbers: true,
             tabSize: 2,
           }} />
-        <div className="codeButtons">
-          <button id="submit" onClick={execute}>Run Code</button>
-          <button id="submit" onClick={displayForm}>Submit Solution</button>
-        </div>
         <div className="console">
           {/* <Console logs={logs} variant="dark" /> */}
           <UserConsole />
         </div>
+        <div className="codeButtons">
+          <button id="submit" onClick={execute}>Run Code</button>
+          <button id="submit" onClick={displayForm}>Submit Solution</button>
+        </div>
       </div>
+      {toggleForm ? <SubmitForm name={name} setName={setName} handleSubmit={handleSubmit} setToggleForm={setToggleForm}/> : null}
     </div>
-  )
-}
+  );
+};
 
 export default Qotd;
