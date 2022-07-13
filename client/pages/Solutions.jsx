@@ -1,11 +1,14 @@
 import React from 'react'
 import Sidenav from '../components/Sidenav';
-
+import GroupSolutions from '../components/GroupSolutions';
+import PrevHH from '../components/PrevHH';
+import '../styles/main.scss';
 const Solutions = () => {
   return (
-    <div>
+    <div id="solutionPage">
       <Sidenav />
-      Solutions
+      <GroupSolutions />
+      <PrevHH />
     </div>
   );
 };
