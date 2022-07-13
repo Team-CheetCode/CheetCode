@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import SolutionCard from './SolutionCard';
+import Upvotes from './Upvotes';
 import axios from 'axios';
+import { uuid } from 'uuidv4'
+
 const GroupSolutions = () => {
    // arr of solutions
    const [allSolutions, setAllSolutions] = useState([]);
@@ -20,12 +23,20 @@ const GroupSolutions = () => {
      getSolutions();
    }, []);
 
+   let cardId = 0;
+
    const solutionList = allSolutions.map((solution) => {
-    if(solution.name) return (
-      <SolutionCard solution={solution.solution} name={solution.name}/>
-    )
+    cardId++;
+    console.log(solution);
+    if(solution.name) return (<div key={'div' + cardId} className='solutionList'>
+        <Upvotes key={'upvote' + cardId} qid={solution.qid} upvotes={solution.upvotes}/>
+        <SolutionCard key={'solution' + cardId} solution={solution.solution} name={solution.name}/>
+      </div>)
     else {
-      return (<SolutionCard solution={solution.solution} name='Anonymous'/>)
+      return (<div key={'div' + cardId} className='solutionList'>
+        <Upvotes key={'upvote' + cardId} qid={solution.qid} upvotes={solution.upvotes}/>
+        <SolutionCard key={'solution' + cardId} solution={solution.solution} name='Anonymous'/>
+      </div>)
     }
    });
 
