@@ -11,4 +11,8 @@ router.post('/userData', userController.postSolution, (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/userData/:id', userController.getSolutions, (req, res) => {
+  res.status(200).json(res.locals.solutions);
+});
+
 module.exports = router;

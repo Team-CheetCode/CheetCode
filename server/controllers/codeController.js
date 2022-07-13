@@ -9,15 +9,10 @@ codeController.getCodeDescription = (req, res, next) => {
       if (err) {
         console.log(err);
       } else {
-       
       }});
-    
-    db
-      .query(codeDescription)
+    db.query(codeDescription)
       .then(data => {
-        
         res.locals.codeDescription = data.rows;
-        
         next();
       });
   };
@@ -30,6 +25,7 @@ codeController.getCodeDescription = (req, res, next) => {
      
     db.query(query)
       .then(data => {
+        console.log(data);
         res.locals.codeSolution = data.rows[0];
         next();
       });
