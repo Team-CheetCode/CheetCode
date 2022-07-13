@@ -8,7 +8,8 @@ const pool = new Pool({
 const createTable = `CREATE TABLE IF NOT EXISTS userSolutions (
   _id int,
   name VARCHAR(255),
-  solution TEXT
+  solution TEXT,
+  upvotes INT
   );`;
 
   pool.query(createTable);

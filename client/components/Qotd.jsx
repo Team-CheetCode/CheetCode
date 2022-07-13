@@ -37,17 +37,27 @@ const Qotd = props => {
   const [solution, setSolution] = useState('');
   const [toggleForm, setToggleForm] = useState(false);
   const [name, setName] = useState(undefined)
-  // const [langSnippets, setLangSnippets] = useState('')
+
+  const snipSnips = {
+    cpp: 0,
+    java: 1,
+    python: 2,
+    csharp: 5,
+    javascript: 6,
+  };
+  const [langSnippets, setLangSnippets] = useState('')
   
   const getQuestion = async () => {
     const day1 = new Date('07/10/2022');
     const day2 = new Date();
     const difference = day1.getTime() - day2.getTime();
     const days = Math.abs(Math.ceil(difference / (1000 * 3600 * 24)));
-    console.log('day', days);
+    // console.log('day', days);
     const qData = await axios.get(`/api/qotd/${days}`);
+    // console.log(qData);
+    console.log('Welcome! Hit run code to see it display here!');
     setProblem(qData.data.question.content);
-    // setLangSnippets(qData.data.question.codeSnippets);
+    setLangSnippets(qData.data.question.codeSnippets);
     setSolution(qData.data.question.codeSnippets[6].code);
     setTitle(qData.data.question.title);
     setDifficulty(qData.data.question.difficulty);
@@ -59,7 +69,12 @@ const Qotd = props => {
 
 
   const changeTheme = (e) => {
-    setTheme(e.target.textContent);
+    setTheme(e.target.value);
+  };
+
+  const changeLanguage = (e) => {
+    setSolution(langSnippets[snipSnips[e.target.value]].code)
+    setLang(e.target.value);
   };
 
   const handleChange = (e) => {
@@ -112,13 +127,27 @@ const Qotd = props => {
       </div>
       <div id="userInput">
         <h1>Input Your Solution</h1>
-        <div className="themeBtns">
-          <button onClick={changeTheme}>twilight</button>
-          <button onClick={changeTheme}>monokai</button>
-          <button onClick={changeTheme}>terminal</button>
-          <button onClick={changeTheme}>tomorrow</button>
-          <button onClick={changeTheme}>github</button>
-          <button onClick={changeTheme}>xcode</button>
+        <div className="change-theme-container">
+          <div className="themes">
+            <label>Change Theme: </label>
+            <select onChange={changeTheme} className="themeBtns">
+              <option value="twilight">Twilight</option>
+              <option value="monokai">Monokai</option>
+              <option value="terminal">Terminal</option>
+              <option value="tomorrow">Tomorrow</option>
+              <option value="github">Github</option>
+              <option value="xcode">Xcode</option>
+            </select>
+          </div>
+          <div className="languages">
+            <label>Change Language: </label>
+            <select onChange={changeLanguage} className="themeBtns">
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="csharp">C#</option>
+              <option value="java">Java</option>
+            </select>
+          </div>
         </div>
         {/* <div className="themeBtns">
           <button onClick={changeLang}>javascript</button>
@@ -146,7 +175,7 @@ const Qotd = props => {
           <UserConsole />
         </div>
         <div className="codeButtons">
-          <button id="submit" onClick={execute}>Run Code</button>
+         {lang === 'javascript' ? <button id="submit" onClick={execute}>Run Code</button> : <button id="submit">Run Code Disabled</button>}
           <button id="submit" onClick={displayForm}>Submit Solution</button>
         </div>
       </div>

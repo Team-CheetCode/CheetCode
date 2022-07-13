@@ -1,5 +1,5 @@
 @import './_variables.scss';
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Source+Code+Pro:wght@500&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -18,6 +18,13 @@ body {
     background-color: $cyan-process;
     outline: 1px solid $blue-crayola;
   }
+}
+#Logo {
+  font-weight: 100;
+  font-size: 1.8rem;
+  text-shadow: 2px 0px #FF00FF, -2px 0px #00FFFF;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
 }
 #Home {
   display: grid;
@@ -46,7 +53,7 @@ nav {
   min-height: 100vh;
   text-align: center;
   background-color: $eerie-black;
-  border-right: 2px solid black;
+  border-right: 1px solid white;
   color: white;
   h1 {
     font-weight: 900;
@@ -55,8 +62,8 @@ nav {
   }
   a {
     text-decoration: none;
-    font-weight: 900;
-    padding: 2em 1em;
+    font-weight: 700;
+    padding: 1em 1em;
     width: 100%;
     font-size: 1.5rem;
     color: $white;
@@ -143,14 +150,40 @@ nav {
   border-left: 2px solid black;
   background-color: #212121;
 }
-
-.themeBtns {
+.change-theme-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
-  padding-bottom: 10px;
+  align-items: center;
+  padding: 0em 3em;
+  margin-bottom: 5px;
 }
-
+.themeBtns {
+  padding: 0.5em 1em;
+  border: 1px solid black;
+  background-color:rgb(186, 14, 143);
+  color: white;
+  border-radius: 10px;
+  font-family: 'Source Code Pro', sans-serif;
+}
+.themes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  label {
+    margin-right: 10px;
+  }
+}
+.languages {
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  label {
+    margin-right: 10px;
+  }
+}
 #submit {
   margin-top: 10px;
   border-radius: 10px;
@@ -176,7 +209,7 @@ nav {
 
 #solutionPage {
   display: grid;
-  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-columns: 1fr 7fr;
   width: 100%;
 }
 #GroupSolutions {
@@ -325,6 +358,39 @@ nav {
     align-self: center;
     justify-self: center;
   }
+}
+
+.solutionList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.solution-cards, .solution-card {
+  width: 100%;
+}
+
+.upvotes {
+  position: relative;
+  left: 70px;
+  bottom: 100px;
+  // margin-right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: $eerie-black;
+  color: white;
+  font-weight: 600;
+  border: 2px solid white;
+}
+.upvotes:hover {
+  .fa-star {
+    color: lighten($color: rgb(255, 123, 46), $amount: 15%);
+    transition: 0.3s ease;
+  }
+}
+.fa-star{
+  color: rgb(255, 123, 46);
 }
 // .solution-card {
 //   display: flex;

@@ -20,8 +20,7 @@ userController.postSolution = (req, res, next) => {
 
 userController.getSolutions = (req, res, next) => {
   const { id } = req.params;
-  console.log('question id in get request: ', id)
-  const query = `SELECT name, solution FROM usersolutions WHERE _id=${id};`;
+  const query = `SELECT qid, name, solution, upvotes FROM usersolutions WHERE _id=${id} ORDER BY upvotes DESC;`;
   db.query(query)
     .then(data => {
       res.locals.solutions = data.rows;
@@ -29,6 +28,17 @@ userController.getSolutions = (req, res, next) => {
     }).catch(err => {
       return next(err);
     });
+};
+
+userController.updateSolutions = (req, res, next) => {
+  const { qid, upvotes } = req.body;
+  const query = `UPDATE usersolutions SET upvotes=${upvotes} WHERE qid=${qid};`;
+  db.query(query)
+    .then(data => {
+      console.log(data)
+      return next()
+    })
+    .catch(err => next(err));
 };
 
 module.exports = userController;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const SubmitForm = props => {
   // const [name, setName] = useState('')
