@@ -8,8 +8,19 @@
 
 #Home {
   display: grid;
-  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-columns: 1fr 7fr;
   min-height: 100%;
+}
+
+#Solutions {
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr;
+  min-height: 100%;
+}
+
+#GroupSolutions, #prevHH {
+  background-color: $eerie-black;
+  color: white;
 }
 
 nav {
