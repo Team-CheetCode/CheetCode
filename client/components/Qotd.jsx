@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from "react-ace";
+import { Console, Hook, Unhook } from 'console-feed'
+import axios from 'axios';
 import UserConsole from './UserConsole';
-const axios = require('axios');
+
 // possible languages
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-typescript";
@@ -27,50 +29,83 @@ import { constantOtherSymbol } from 'ace-builds/src-noconflict/mode-ruby';
 
 
 const Qotd = props => {
-  // const [solution, setSolution] = useState(props.langSnippets[6]);
-  // console.log(solution)
   const [theme, setTheme] = useState('twilight');
-  const [lang, setLang] = useState('javascript')
+  const [lang, setLang] = useState('javascript');
+  const [problem, setProblem] = useState('');
+  const [title, setTitle] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [solution, setSolution] = useState('');
+  const [toggleForm, setToggleForm] = useState(false);
+  // const [langSnippets, setLangSnippets] = useState('')
+  
+  const getQuestion = async () => {
+    const day1 = new Date('07/10/2022');
+    const day2 = new Date();
+    const difference = day1.getTime() - day2.getTime();
+    const days = Math.abs(Math.ceil(difference / (1000 * 3600 * 24)));
+    console.log('days', days);
+    const qData = await axios.get(`/api/qotd/${days}`);
+    console.log('data', qData);
+    setProblem(qData.data.question.content);
+    // setLangSnippets(qData.data.question.codeSnippets);
+    setSolution(qData.data.question.codeSnippets[6].code);
+    setTitle(qData.data.question.title);
+    setDifficulty(qData.data.question.difficulty);
+  }
+  
+  useEffect(() => {
+    getQuestion();
+  }, []);
+
+
   const changeTheme = (e) => {
     setTheme(e.target.textContent);
   };
 
-  // const changeLang = (e) => {
-  //   console.log(e.target.textContent)
-  //   if(e.target.textContent === 'typescript') {
-  //     props.setSolution(props.langSnippets[14])
-  //     setLang(e.target.textContent)
-  //   } else if(e.target.textContent === 'javascript') {
-  //     props.setSolution(props.langSnippets[6])
-  //     setLang(e.target.textContent)
-  //   }
-  // };
-
   const handleChange = (e) => {
-    props.setSolution(e);
+    setSolution(e);
   };
+
+  // display a form for the user to
+  // input their name (first)
+  const displayForm = () => {
+    toggleForm ? setToggleForm(false) : setToggleForm(true);
+  }
 
   const handleSubmit = () => {
-    alert(props.solution);
+    const day1 = new Date('07/10/2022');
+    const day2 = new Date();
+    const difference = day1.getTime() - day2.getTime();
+    const days = Math.abs(Math.ceil(difference / (1000 * 3600 * 24)));
+    axios.post('/api/userData', {
+      solution: `${solution}`,
+      id: days
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
-  const execute = async () => {
+  const execute = () => {
     // Get input from the code editor
     // Run the user code
-    const test = await new Function(props.solution)();
-    
-    await console.log(test);
-
-  }
+    try {
+      new Function(solution)();
+    }
+    catch(err) {
+      console.log(err)
+    };
+  };
 
 
   return (
     <div id="qotd">
       <div id="prompt">
-        <h1 id="question">QOTD: {props.title ? props.title : 'Loading...'}</h1>
+        <h1 id="question">QOTD: {title ? title : 'Loading...'}</h1>
         <div className="problem">
-          <p>Difficulty: {props.difficulty}</p>
-          <p id="problem" dangerouslySetInnerHTML={{__html: props.problem}}></p>
+          <p>Difficulty: {difficulty}</p>
+          <p id="problem" dangerouslySetInnerHTML={{__html: problem}}></p>
         </div>
       </div>
       <div id="userInput">
@@ -98,15 +133,19 @@ const Qotd = props => {
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          value={props.solution}
+          value={solution}
           onChange={handleChange}
           setOptions={{
             showLineNumbers: true,
             tabSize: 2,
           }} />
-        <button id="submit" onClick={execute}>Submit Solution</button>
+        <div className="codeButtons">
+          <button id="submit" onClick={execute}>Run Code</button>
+          <button id="submit" onClick={displayForm}>Submit Solution</button>
+        </div>
         <div className="console">
-          <UserConsole logs={props.consoleData} variant="dark" />
+          {/* <Console logs={logs} variant="dark" /> */}
+          <UserConsole />
         </div>
       </div>
     </div>
